@@ -15,10 +15,12 @@ def second():
 def third():
     return "<h2>This is the subpath of third page</h2>"
 
-@app.route("/fourth/<string:id>")
+@app.route("/forth/<string:id>")
 def forth(id):
     return f'Id of this page is {id}'
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+#   app.run(host='0.0.0.0', port=80) to run on the EC2-instance, please non-comment this line.    

@@ -119,11 +119,19 @@ Followings are some of features of Flask Framework;
 
 - Update the installed packages and package cache on your instance.
 
-- install git and wget
+sudo yum update -y
+
+- install git and wget, flask
+
+sudo yum install git -y
+sudo yum instal wget
+sudo pip3 install flask
 
 - Download the web application file from GitHub repo.
 
 - Run the web application
+ 
+sudo python3 hello-world-app.py
 
 - Connect the Hello World application from the web browser
 

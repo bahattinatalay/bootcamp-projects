@@ -17,3 +17,5 @@ def number():
 
 if __name__== "__main__":
     app.run(debug=True)
+
+#   app.run(host='0.0.0.0', port=80) to run on the EC2-instance, please non-comment this line.  
