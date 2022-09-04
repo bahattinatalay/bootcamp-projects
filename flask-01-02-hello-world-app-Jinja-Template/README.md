@@ -66,7 +66,7 @@ Followings are some of features of Flask Framework;
 
 - Create a function `second` which returns a string `This is the second page` and assign a URL route the `second` function with decorator `@app.route('/second')`. 
 
-- Create a function `third` which returns a string `This is the subpage of third page` and assign a URL route the `third` function with decorator `@app.route('/third/subthird')`. 
+- Create a function `third` which returns a string `This is the subpage of third page` and assign a URL route the `third` function with decorator `@app.route('/third/sub3')`. 
 
 - Create a dynamic url which takes id number dynamically and return with a massage which show id of page.
 
