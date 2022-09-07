@@ -16,6 +16,10 @@ aws --version
 aws configure
 ```
 
+check your account Id:
+
+`aws sts get-caller-identity --query Account --output text`
+
 1. Create Security Group
 
 ```bash
@@ -27,6 +31,12 @@ aws ec2 create-security-group \
 - We can check the security Group with these commands
 ```bash
 aws ec2 describe-security-groups --group-names roman_numbers_sec_grp
+```
+
+check your host public IP:
+
+```bash
+curl https://checkip.amazonaws.com
 ```
 
 2. Create Rules of security Group
@@ -45,7 +55,13 @@ aws ec2 authorize-security-group-ingress \
     --cidr 0.0.0.0/0
 ```
 
-3. After creating security Groups, We'll create our EC2 which has latest AMI id. to do this, we need to find out latest AMI with AWS system manager (ssm) command
+- We can check the security Group with these commands
+
+```bash
+aws ec2 describe-security-groups --group-names roman_numbers_sec_grp
+```
+
+1. After creating security Groups, We'll create our EC2 which has latest AMI id. to do this, we need to find out latest AMI with AWS system manager (ssm) command
 
 - This command is to get description of latest AMI ID that we use.
 ```bash
@@ -63,10 +79,14 @@ aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hv
 LATEST_AMI=$(aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --query 'Parameters[0].[Value]' --output text)
 ```
 
+echo $LATEST_AMI 
+
+
+
 - Now we can run the instance with CLI command. (Do not forget to create userdata.sh under "/home/ec2-user/" folder before run this command)
 
 ```bash
-aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name serdar --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///Users/ODG/Desktop/git_dir/serdar-cw/porfolio_lesson_plan/week_6/CLI_solution/userdata.sh
+aws ec2 run-instances --image-id $LATEST_AMI --count 1 --instance-type t2.micro --key-name firstkey --security-groups roman_numbers_sec_grp --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]' --user-data file:///home/ec2-user/userdata.sh 
 
 or
 
@@ -74,9 +94,10 @@ aws ec2 run-instances \
     --image-id $LATEST_AMI \
     --count 1 \
     --instance-type t2.micro \
-    --key-name serdar \
-    --security-groups my_sec_group \
+    --key-name firstkey \
+    --security-groups roman_numbers_sec_grp \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]'
+    --user-data file:///home/ec2-user/userdata.sh 
 ```
 
 - To see the each instances Ip we'll use describe instance CLI command
